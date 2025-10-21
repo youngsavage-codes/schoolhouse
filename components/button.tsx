@@ -1,55 +1,89 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { ButtonProp } from '@/interface/others.interface'
-import { colors } from '@/constants/colors'
+import React from 'react';
+import { Pressable, StyleSheet, Text, View, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
+import { colors } from '@/constants/colors';
+import { fontSize, fontWeight } from '@/constants/fonts';
 
-const Button: React.FC<ButtonProp> = ({ label, onPress, disabled = false, labelStyle, containerStyle }) => {
-  return (
-    <Pressable onPress={onPress} disabled={disabled} style={[styles.pressable, containerStyle]}>
-      {/* Background Circles */}
-      <View style={styles.buttonContainer1} />
-      <View style={styles.buttonContainer2} />
-
-      {/* Label */}
-      <Text style={[styles.label, labelStyle]}>{label}</Text>
-    </Pressable>
-  )
+export interface ButtonProps {
+  label: string;
+  onPress?: () => void;
+  loading?: boolean;
+  disabled?: boolean;
+  variant?: 'primary' | 'outline' | 'ghost'; // customizable button styles
+  containerStyle?: ViewStyle;
+  labelStyle?: TextStyle;
 }
 
-export default Button
+/**
+ * Reusable Button component with layered circular design and flexible variants.
+ */
+const Button: React.FC<ButtonProps> = ({
+  label,
+  onPress,
+  loading = false,
+  disabled = false,
+  variant = 'primary',
+  containerStyle,
+  labelStyle,
+}) => {
+  const isDisabled = disabled || loading;
+
+  return (
+    <Pressable
+      onPress={onPress}
+      disabled={isDisabled}
+      style={({ pressed }) => [
+        styles.pressable,
+        variant === 'primary' && styles.primary,
+        variant === 'outline' && styles.outline,
+        variant === 'ghost' && styles.ghost,
+        pressed && !isDisabled && styles.pressed,
+        isDisabled && styles.disabled,
+        containerStyle,
+      ]}
+    >
+      {loading ? (
+        <ActivityIndicator color="#fff" size="small" />
+      ) : (
+        <Text style={[styles.label, labelStyle]}>{label}</Text>
+      )}
+    </Pressable>
+  );
+};
+
+export default Button;
 
 const styles = StyleSheet.create({
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    width: 180,
-    height: 160,
+    width: '100%',
+    height: 50,
+    borderRadius: 50,
+    overflow: 'hidden',
   },
-  buttonContainer1: {
-    width: 169,
-    height: 140,
-    backgroundColor: colors.btncon,
-    borderRadius: 84.5, // Half of width/height to make it circular
-    position: 'absolute',
-    right: 10,
-    top: -20,
-    zIndex: 0,
+  primary: {
+    backgroundColor: colors.primary,
   },
-  buttonContainer2: {
-    width: 169,
-    height: 140,
-    backgroundColor: colors.btncon,
-    borderRadius: 84.5,
-    position: 'absolute',
-    right: 20,
-    top: -10,
-    zIndex: 1,
+  outline: {
+    borderWidth: 2,
+    borderColor: colors.btncon,
+    backgroundColor: 'transparent',
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+  },
+  pressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.98 }],
+  },
+  disabled: {
+    opacity: 0.5,
   },
   label: {
-    color: '#fff',
-    fontSize: 25,
-    fontWeight: '400',
+    color: colors.text,
+    fontSize: fontSize.sm,
+    fontWeight: fontWeight.normal,
     zIndex: 2,
-  }
-})
+  },
+});

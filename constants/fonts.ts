@@ -1,10 +1,8 @@
 // Font Families
 export const fontFamily = {
-    sans: "'Helvetica Neue', Helvetica, Arial, sans-serif",
-    serif: "'Georgia', serif",
-    mono: "'Courier New', Courier, monospace",
-    body: "'Inter', sans-serif",         // Preferred body font
-    heading: "'Poppins', sans-serif",    // Preferred heading font
+  logo: 'Bricolage',                     // Use the exact name you load in useFonts
+  body: 'Inter',
+  heading: 'Poppins',
 };
 
 // Font Sizes (rem units, scalable & responsive)

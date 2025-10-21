@@ -7,7 +7,7 @@ export const globalStyles = StyleSheet.create({
   // Layout
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.primary,
   },
 
   centerContent: {
