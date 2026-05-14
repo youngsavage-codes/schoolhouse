@@ -2,12 +2,13 @@
 import { StyleSheet } from 'react-native';
 import { colors } from './colors';
 import { fontFamily, fontSize, fontWeight } from './fonts';
+import { spacing } from './spacing';
 
 export const globalStyles = StyleSheet.create({
   // Layout
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
+    padding: spacing[6],
   },
 
   centerContent: {
@@ -92,5 +93,23 @@ export const globalStyles = StyleSheet.create({
   },
   mb3: {
     marginBottom: 16,
+  },
+
+  greetingText: {
+    fontFamily: fontFamily.logo,
+    fontWeight: fontWeight.medium,
+    fontSize: fontSize.sm,
+    color: colors.primary,
+  },
+  greetingDesc: {
+    fontFamily: fontFamily.body,
+    color: colors.text,
+  },
+  introText: {
+    fontWeight: '600',
+    marginVertical: 20,
+    fontSize: fontSize.sm,
+    color: colors.text,
+    fontFamily: fontFamily.heading,
   },
 });

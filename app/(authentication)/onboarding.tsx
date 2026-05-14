@@ -11,26 +11,27 @@ const OnboardingScreen = () => {
   const [activeIndex, setActiveIndex] = useState(0)
 
   // ✅ Carousel content
-  const carouselContent = [
-    {
-      id: 1,
-      image: require('../../assets/images/onboarding1.png'),
-      header: 'Experience a smooth school life',
-      desc: 'Be a part of SchoolHouse and follow up with your ward(s)’ performances.'
-    },
-    {
-      id: 2,
-      image: require('../../assets/images/onboarding2.png'),
-      header: 'Track Academic Progress',
-      desc: 'Monitor your ward’s grades and attendance with ease and transparency.'
-    },
-    {
-      id: 3,
-      image: require('../../assets/images/onboarding3.png'),
-      header: 'Stay Connected Always',
-      desc: 'Communicate directly with teachers and stay updated on school events.'
-    }
-  ]
+const carouselContent = [
+  {
+    id: 1,
+    image: require('../../assets/images/onboarding1.png'),
+    header: 'For Parents',
+    desc: 'Be a part of your child’s education. Stay informed and be part of the community.'
+  },
+  {
+    id: 2,
+    image: require('../../assets/images/onboarding2.png'),
+    header: 'For Teachers',
+    desc: 'Communicate, earn, and achieve more—quickly and efficiently.'
+  },
+  {
+    id: 3,
+    image: require('../../assets/images/onboarding3.png'),
+    header: 'For School Admins',
+    desc: 'Experience a more reliable, simple, and efficient way to manage and administer your school.'
+  }
+]
+
 
   // ✅ Handle Next button click
   const handleNext = () => {

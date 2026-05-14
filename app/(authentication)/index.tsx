@@ -16,7 +16,7 @@ const Index = () => {
   }, [])
 
   return (
-    <SafeAreaView style={[globalStyles.container, globalStyles.centerContent]}>
+    <SafeAreaView style={[globalStyles.container, globalStyles.centerContent, {backgroundColor: colors.primary}]}>
       <Animated.Image
         entering={FadeInDown.duration(1000)}
         exiting={FadeOutUp.duration(1000)}
@@ -29,7 +29,7 @@ const Index = () => {
         exiting={FadeOutUp.duration(1000)}
         style={styles.textStyle}
       >
-        School House
+        SchoolHouse
       </Animated.Text>
     </SafeAreaView>
   )

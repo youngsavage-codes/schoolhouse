@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   label: {
-    color: colors.text,
+    color: colors.text2,
     fontSize: fontSize.sm,
     fontWeight: fontWeight.normal,
     zIndex: 2,
