@@ -48,10 +48,12 @@ const Requests = () => {
     router.push('/(more)/requestDetails');
   };
 
-  const {} = useFetch({
+  const {data} = useFetch({
     url: '/approvals/pending',
     keys: ['requests']
   })
+
+  console.log('data', data)
 
   const approveParentsMutation = useMutationApi({
     url: (parent_id: string) =>  `/approvals/parent/${parent_id}/approve`,

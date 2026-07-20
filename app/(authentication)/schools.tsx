@@ -32,6 +32,8 @@ const SchoolsPage = () => {
     }
   });
 
+  // console.log('schools', data.data.schools)
+
   // Extract schools array safely
   const schools = isSuccess && data?.data.schools ? data.data.schools : [];
 

@@ -69,7 +69,7 @@ const Dashboard: React.FC<Props> = ({ items }) => {
         <View style={styles.iconWrapper}>
           {React.isValidElement(item.icon)
             ? React.cloneElement(item.icon, {
-                color: colors.background,
+                color: colors.grayDark,
               })
             : item.icon}
         </View>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.base,
     fontFamily: fontFamily.heading,
     fontWeight: fontWeight.medium,
-    color: colors.text2,
+    color: colors.grayDark,
     flexShrink: 1,
   },
   empty: {

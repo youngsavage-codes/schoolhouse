@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import Button from '@/components/button';
@@ -23,12 +22,14 @@ import { useMutationApi } from '@/hooks/useMutation';
 import { colors } from '@/constants/colors';
 import { spacing } from '@/constants/spacing';
 import { fontFamily, fontSize, fontWeight } from '@/constants/fonts';
+import { useForm, Controller } from 'react-hook-form';
 
 const SignupScreen = () => {
   const { accountType, schoolId } = useLocalSearchParams();
 
   const {
     handleSubmit,
+    control,
     setValue,
     watch,
     formState: { errors, isValid },
@@ -192,39 +193,33 @@ const SignupScreen = () => {
             />
 
             {/* 👇 ONLY CONTROLLER FOR UPLOAD */}
-            {/* {accountType === 'teacher' && (
+            {accountType === 'teacher' && (
               <>
                 <Controller
-                  control={{ setValue, watch } as any}
+                  control={control}   // ✅ FIX HERE
                   name="photo"
-                  render={({ field: { value } }) => (
+                  render={({ field: { value, onChange } }) => (
                     <UploadCard
-                      title="Upload Profile Image"
+                      title="Profile Photo"
                       value={value}
-                      onPress={() => {
-                        const url = 'uploaded-image-url';
-                        setValue('photo', url, { shouldValidate: true });
-                      }}
+                      onChange={onChange} // expects string OR object
                     />
                   )}
                 />
 
                 <Controller
-                  control={{ setValue, watch } as any}
+                  control={control}
                   name="staffIdDocument"
-                  render={({ field: { value } }) => (
+                  render={({ field: { value, onChange } }) => (
                     <UploadCard
                       title="Upload Staff ID Document"
                       value={value}
-                      onPress={() => {
-                        const url = 'uploaded-id-url';
-                        setValue('staffIdDocument', url, { shouldValidate: true });
-                      }}
+                      onChange={onChange}
                     />
                   )}
                 />
               </>
-            )} */}
+            )}
 
             <Button
               label={

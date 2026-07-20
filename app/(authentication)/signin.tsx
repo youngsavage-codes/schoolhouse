@@ -14,6 +14,7 @@ import { spacing } from '@/constants/spacing';
 import { fontFamily, fontSize, fontWeight } from '@/constants/fonts';
 import { globalStyles } from '@/constants/globalStyles';
 import { useMutationApi } from '@/hooks/useMutation';
+import { useAuth } from '@/hooks/AuthContext';
 
 // ----------------------
 // Yup Validation Schema
@@ -30,6 +31,7 @@ interface LoginFormValues {
 }
 
 const SigninScreen = () => {
+  const { login } = useAuth()
   const {
     control,
     handleSubmit,
@@ -54,13 +56,24 @@ const SigninScreen = () => {
     invalidateKeys: ['user'], // optional cache invalidation
     onSuccess(data) {
       console.log('Login success', data);
-      router.push({
-        pathname: '/(authentication)/otp-verification',
-        params: { email: '' },
-      });
+      const user = data?.data?.user
+      const accessToken = data?.data?.accessToken
+      const refreshToken = data?.data?.refreshToken
+
+      login({user, access_token: accessToken, refresh_token: refreshToken})
+
+      if(!user?.isEmailVerified) {
+        router.replace({
+          pathname: '/(authentication)/otp-verification',
+          params: { email: user.email },
+        });
+      } else if(!user?.isActive) {
+        router.replace('/others/awaitVerification')
+      } else {
+        router.replace('/(tabs)')
+      }
     },
     onError(error) {
-      console.log('Login error', error);
       Alert.alert('Login Error', error?.response.data.message);
     },
   });
